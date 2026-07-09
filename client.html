@@ -107,6 +107,7 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   <div class="appt-bar">
     <div class="appt-service" id="o-service-stylist">Service</div>
     <div class="appt-detail" id="o-datetime">Date &middot; Moreno Valley, CA</div>
+    <div id="o-client-name" style="display:none; font-size:11px; color:rgba(28,53,40,0.6); margin-top:3px; font-weight:500;"></div>
   </div>
 
   <div class="card-body">
@@ -126,7 +127,13 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     <!-- LONG APPOINTMENT NOTE -->
     <div class="block" id="o-long-appt-block" style="display:none;">
       <div class="block-title">Extended Service Note</div>
-      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.<br><br>Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.</div>
+    </div>
+
+    <!-- LOC INSTALL NOTE -->
+    <div class="block" id="o-loc-note-block" style="display:none;">
+      <div class="block-title">Loc Install Note</div>
+      <div class="callout">Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
     </div>
 
     <!-- PREP CHECKLIST -->
@@ -255,6 +262,7 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   const notes    = get('notes');
   const hairNotes = get('hairNotes');
   const longAppt = get('longAppt') === '1';
+  const locNote  = get('locNote') === '1';
   const depositRcvd = get('depositRcvd') === '1';
   const prepRaw  = get('prep');
   const balance  = total > 0 ? Math.max(0, total - deposit) : 0;
@@ -270,12 +278,18 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   }
   setText('o-appt-id', (client || date) ? genId() : '');
 
-  // Header
-  if (depositRcvd) show('o-deposit-stamp');
+  // Header headline - personalized with client name
+  if (client) {
+    setText('o-headline', 'Your appointment has been reserved, ' + client + '.');
+  }
 
   // Appt bar
   setText('o-service-stylist', (service || 'Service') + (stylist ? ' with ' + stylist : ''));
   setText('o-datetime', (fmt(date) || date || 'Date') + (time ? ' at ' + time : '') + ' \u00B7 Moreno Valley, CA');
+  if (client) {
+    const nameEl = document.getElementById('o-client-name');
+    if (nameEl) { nameEl.textContent = client; nameEl.style.display = 'block'; }
+  }
 
   // Notes
   if (notes) { show('o-notes-block'); setText('o-notes-text', notes); }
@@ -285,6 +299,9 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
 
   // Long appt
   if (longAppt) show('o-long-appt-block');
+
+  // Loc install note
+  if (locNote) show('o-loc-note-block');
 
   // Prep checklist
   if (prepRaw) {
