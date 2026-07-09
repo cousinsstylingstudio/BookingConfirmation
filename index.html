@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Cousins Styling Studio Booking Confirmation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem 3rem; }
+
+/* GUIDE */
+.guide { background: #fff; border: 2px dashed #B8872A; border-radius: 16px; max-width: 420px; width: 100%; margin-bottom: 1rem; padding: 1rem 1.25rem; }
+.guide h2 { font-size: 11px; font-weight: 700; color: #0F2D1F; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+.guide-sub { font-size: 10px; color: #B8872A; font-style: italic; margin-bottom: 10px; }
+.guide-steps { display: flex; flex-direction: column; gap: 6px; }
+.gs { display: flex; gap: 8px; align-items: flex-start; font-size: 11.5px; color: #2A2A22; line-height: 1.5; }
+.gs-num { background: #0F2D1F; color: #B8872A; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.gs strong { color: #0F2D1F; }
+.copy-msg { background: #F5F0E8; border-radius: 6px; padding: 8px 10px; font-size: 11px; color: #0F2D1F; font-style: italic; margin-top: 6px; line-height: 1.6; }
+
+/* EDIT PANEL */
+.edit { background: #F5F0E8; border-radius: 12px; padding: 1rem 1.25rem; max-width: 420px; width: 100%; margin-bottom: 1rem; }
+.edit h3 { font-size: 10px; font-weight: 700; color: #0F2D1F; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.row1 { margin-bottom: 8px; }
+.ef label { display: block; font-size: 9px; color: #7A6A4A; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.ef input, .ef select { width: 100%; font-family: inherit; font-size: 16px; color: #1A1A18; background: #fff; border: 1px solid #D4B87A; border-radius: 6px; padding: 7px 10px; outline: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.ef input:focus, .ef select:focus { border-color: #0F2D1F; }
+.balance-display { background: #0F2D1F; border-radius: 8px; padding: 10px 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; }
+.balance-label { font-size: 11px; color: #8A9E8A; }
+.balance-amount { font-size: 16px; font-weight: 700; color: #D4A843; }
+.btn-row { display: flex; gap: 8px; margin-top: 10px; }
+.btn-primary { background: #0F2D1F; color: #B8872A; border: none; padding: 14px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; flex: 1; -webkit-tap-highlight-color: transparent; touch-action: manipulation; min-height: 48px; }
+.btn-secondary { background: #B8872A; color: #fff; border: none; padding: 14px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; flex: 1; -webkit-tap-highlight-color: transparent; touch-action: manipulation; min-height: 48px; }
+
+/* CARD */
+.card { background: #FAFAF7; width: 100%; max-width: 420px; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.12); }
+.card-header { background: #0F2D1F; padding: 1.5rem 1.75rem; }
+.gold-rule { width: 36px; height: 3px; background: #D4A843; border-radius: 2px; margin-bottom: 1rem; }
+.studio-name { font-size: 10px; font-weight: 600; color: #B8872A; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+.card-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #F0EDE4; line-height: 1.2; margin-bottom: 5px; }
+.card-sub { font-size: 12px; color: #6A7A6A; }
+
+/* APPT BAR */
+.appt-bar { background: #B8872A; padding: 12px 1.75rem; }
+.appt-service { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.appt-detail { font-size: 12px; color: rgba(255,255,255,0.85); }
+
+/* BODY */
+.card-body { padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
+.block { padding-bottom: 1rem; border-bottom: 1px solid #E8E4DA; }
+.block:last-child { border-bottom: none; padding-bottom: 0; }
+.block-title { font-size: 9px; font-weight: 700; color: #B8872A; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.block-title::after { content: ''; flex: 1; height: 1px; background: #B8872A; opacity: 0.25; }
+
+/* BALANCE TABLE */
+.balance-table { width: 100%; border-collapse: collapse; }
+.balance-table td { padding: 8px 0; font-size: 13px; color: #2A2A22; border-bottom: 1px solid #F0EDE4; line-height: 1.4; }
+.balance-table tr:last-child td { border-bottom: none; font-weight: 700; color: #0F2D1F; font-size: 14px; padding-top: 10px; }
+.balance-table td:last-child { text-align: right; font-weight: 600; }
+.balance-table .deposit-row td { color: #8B2000; }
+.balance-table .due-row td { color: #0F2D1F; }
+
+/* ZELLE */
+.zelle-box { background: #0F2D1F; border-radius: 10px; padding: 12px 14px; margin-top: 10px; }
+.zelle-line { font-size: 12px; color: #C8D8C8; line-height: 1.5; margin-bottom: 4px; }
+.zelle-line:last-child { margin-bottom: 0; }
+.zelle-line strong { color: #D4A843; }
+.zelle-note { font-size: 11px; color: #8A9E8A; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.08); line-height: 1.5; }
+.deadline-pill { background: #FDECEA; border: 1px solid #d4a4a0; border-radius: 6px; padding: 5px 10px; font-size: 12px; color: #7A1A1A; margin-bottom: 8px; display: inline-block; }
+
+/* HAIR */
+.hair-opt { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.hair-opt:last-child { margin-bottom: 0; }
+.hair-num { background: #0F2D1F; color: #B8872A; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.hair-text { font-size: 12.5px; color: #2A2A22; line-height: 1.5; }
+.hair-text strong { color: #0F2D1F; }
+.reply-box { background: #0F2D1F; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+.reply-title { font-size: 9px; font-weight: 700; color: #B8872A; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.reply-line { font-size: 12px; color: #C8D8C8; line-height: 1.8; }
+.reply-line strong { color: #D4A843; }
+.reply-sub { font-size: 11px; color: #8A9E8A; margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.08); }
+.callout { background: #F5F0E8; border-left: 3px solid #B8872A; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: #3A2A0A; line-height: 1.65; margin-top: 8px; }
+.visual-steps { display: flex; flex-direction: column; gap: 0; }
+.vstep { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #F0EDE4; }
+.vstep:last-child { border-bottom: none; }
+.vstep-icon { display:flex; align-items:center; justify-content:center; flex-shrink:0; width:32px; height:32px; background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2); border-radius:8px; margin-top:2px; }
+.vstep-body { flex: 1; }
+.vstep-title { font-size: 13px; font-weight: 700; color: #0F2D1F; margin-bottom: 2px; }
+.vstep-desc { font-size: 12px; color: #5A5A52; line-height: 1.5; }
+.hair-confirmed { background: #EAF0EA; border-left: 3px solid #0F2D1F; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: #1A2A1A; line-height: 1.6; margin-top: 8px; }
+
+/* NOTES */
+.notes-box { background: #F5F0E8; border-left: 3px solid #B8872A; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 13px; color: #3A2A0A; line-height: 1.65; }
+
+/* PHOTOS */
+.photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+.photo-slot { display: none; }
+.photo-slot-label { font-size: 10px; font-weight: 700; color: #7A6A4A; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.photo-slot img { width: 100%; border-radius: 8px; border: 1px solid #E8E4DA; object-fit: cover; aspect-ratio: 1; display: block; }
+.stylist-comments { background: #EAF0EA; border-left: 3px solid #0F2D1F; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: #1A2A1A; line-height: 1.65; }
+
+/* TERMS */
+.terms-bar { background: #F5F0E8; padding: 0.75rem 1.75rem; text-align: center; border-top: 1px solid #EDEAE2; }
+.terms-text { font-size: 11px; color: #7A6A4A; line-height: 1.7; }
+.terms-text a { color: #B8872A; font-weight: 600; }
+
+/* FOOTER */
+.card-footer { background: #0F2D1F; padding: 1rem 1.75rem; text-align: center; }
+.footer-studio { font-size: 10px; font-weight: 600; color: #B8872A; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.footer-q { font-size: 12px; color: #6A7A6A; margin-bottom: 5px; }
+.footer-phone { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #D4A843; text-decoration: none; display: block; margin-bottom: 5px; }
+.footer-addr { font-size: 10px; color: #4A5A4A; line-height: 1.6; }
+
+/* PHOTO UPLOAD */
+.photo-upload-section { margin-top: 8px; }
+.photo-upload-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.photo-upload-row button { flex: 1; background: #0F2D1F; color: #B8872A; border: none; padding: 7px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.photo-upload-row button.secondary { background: #F5F0E8; color: #3A2A0A; border: 1px solid #D4B87A; }
+.photo-thumb-row { display: flex; gap: 8px; margin-top: 6px; align-items: center; }
+.photo-thumb-row img { height: 52px; width: 52px; object-fit: cover; border-radius: 6px; border: 1px solid #E8E4DA; display: none; }
+.photo-thumb-row button { background: none; border: none; color: #8B2000; font-size: 11px; cursor: pointer; display: none; }
+
+@media print {
+  @page { margin: 0.25in; size: letter portrait; }
+  body { background: white; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .guide, .edit { display: none !important; }
+  .card { box-shadow: none; border-radius: 0; width: 100%; max-width: 100%; }
+  .card-header { padding: 0.6rem 1.25rem; }
+  .card-header h1 { font-size: 17pt; margin-bottom: 2px; }
+  .gold-rule { margin-bottom: 6px; }
+  .studio-name { margin-bottom: 4px; }
+  .card-sub { font-size: 9pt; }
+  .appt-bar { padding: 6px 1.25rem; }
+  .appt-service { font-size: 11pt; }
+  .appt-detail { font-size: 9pt; }
+  .card-body { padding: 0.45rem 1.25rem; gap: 0.4rem; }
+  .block { padding-bottom: 0.4rem; }
+  .block-title { font-size: 7.5pt; margin-bottom: 4px; }
+  .balance-table td { font-size: 10pt; padding: 4px 0; }
+  .balance-table tr:last-child td { font-size: 11pt; padding-top: 6px; }
+  .zelle-box { padding: 6px 10px; margin-top: 6px; }
+  .zelle-line { font-size: 9pt; margin-bottom: 2px; }
+  .zelle-note { font-size: 8pt; margin-top: 4px; padding-top: 4px; }
+  .hair-text { font-size: 9pt; }
+  .hair-opt { margin-bottom: 4px; }
+  .reply-box { padding: 6px 8px; margin-top: 5px; }
+  .reply-line { font-size: 9pt; line-height: 1.5; }
+  .reply-sub { font-size: 8pt; }
+  .callout { font-size: 9pt; padding: 7px 10px; margin-top: 5px; }
+  .vstep { padding: 6px 0; }
+  .vstep-icon { width: 26px; height: 26px; }
+  .vstep-title { font-size: 10pt; }
+  .vstep-desc { font-size: 8.5pt; }
+  .hair-confirmed { font-size: 9pt; padding: 7px 10px; }
+  .terms-bar { padding: 0.3rem 1.25rem; }
+  .terms-text { font-size: 8pt; }
+  .card-footer { padding: 0.4rem 1.25rem; }
+  .footer-studio { font-size: 8pt; }
+  .footer-q { font-size: 9pt; }
+  .footer-phone { font-size: 13pt; margin-bottom: 3px; }
+  .footer-addr { font-size: 7.5pt; }
+  .deadline-pill { font-size: 9pt; padding: 3px 8px; }
+  .notes-box { font-size: 10pt; }
+  .stylist-comments { font-size: 9pt; padding: 7px 10px; }
+  .photo-grid { gap: 6px; margin-bottom: 5px; }
+  .zelle-box .zelle-line[style*="margin-top:8px"] { margin-top: 5px !important; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<!-- COORDINATOR GUIDE -->
+<div class="guide">
+  <h2>For Coordinators Only</h2>
+  <p class="guide-sub">Disappears when downloaded as PDF. Client never sees this.</p>
+  <div class="guide-steps">
+    <div class="gs"><div class="gs-num">1</div><span>When a client books, <strong>text them immediately:</strong><div class="copy-msg">Hey Cousin! We have your appointment set. Send any requested photos or hair details so we can finalize your confirmation.</div></span></div>
+    <div class="gs"><div class="gs-num">2</div><span>Once details are confirmed, open this form and fill in the <strong>6 required fields.</strong> Remaining balance calculates automatically.</span></div>
+    <div class="gs"><div class="gs-num">3</div><span><strong>Upload their photos</strong> using the photo fields below. The section only appears on the card if a photo is added. Leave blank if not applicable.</span></div>
+    <div class="gs"><div class="gs-num">4</div><span><strong>Optional:</strong> add Hair / Appointment Notes, stylist comments, or a note from Cousins.</span></div>
+    <div class="gs"><div class="gs-num">5</div><span>Click <strong>Download as PDF</strong> and send via text with this message:<div class="copy-msg">Hey Cousin! Your booking details are attached. Send your deposit to lock in your spot. Everything you need is inside. Questions? Call us at (951) 653-4477.</div></span></div>
+    <div class="gs"><div class="gs-num">6</div><span><strong>Update the client's record</strong> in your booking system: confirmation sent, deposit received, photos received.</span></div>
+  </div>
+</div>
+
+<!-- EDIT PANEL -->
+<div class="edit">
+  <h3>Fill In 6 Required Fields</h3>
+  <div class="row1 ef"><label>Client Name</label><input type="text" id="f-client" placeholder="e.g. Jasmine" oninput="update()"></div>
+  <div class="row2">
+    <div class="ef"><label>Service</label><input type="text" id="f-service" placeholder="e.g. Box Braids" oninput="update()"></div>
+    <div class="ef"><label>Stylist</label><input type="text" id="f-stylist" placeholder="e.g. Tia" oninput="update()"></div>
+  </div>
+  <div class="row2">
+    <div class="ef"><label>Date</label><input type="text" id="f-date" placeholder="e.g. June 16th" oninput="update()"></div>
+    <div class="ef"><label>Time</label><input type="text" id="f-time" placeholder="e.g. 10:00 AM" oninput="update()"></div>
+  </div>
+  <div class="row2">
+    <div class="ef"><label>Service Total ($)</label><input type="number" id="f-total" placeholder="e.g. 180" oninput="update()" onchange="update()" onblur="update()"></div>
+    <div class="ef"><label>Total Deposit Due Now ($)</label><input type="number" id="f-deposit" value="25" oninput="update()" onchange="update()" onblur="update()"></div>
+  </div>
+  <div id="deposit-warning" style="display:none; font-size:11px; color:#8B2000; background:#FDECEA; border-radius:6px; padding:6px 10px; margin-bottom:6px;">Deposit cannot exceed the service total.</div>
+
+  <div class="balance-display">
+    <div>
+      <div class="balance-label">Remaining balance due on your appointment day</div>
+    </div>
+    <div class="balance-amount" id="o-balance-display">$—</div>
+  </div>
+
+  <div style="height:1px; background:#D4B87A; opacity:0.4; margin:10px 0;"></div>
+  <div style="font-size:9px; color:#7A6A4A; font-style:italic; margin-bottom:8px;">Optional fields. Leave blank if not applicable.</div>
+
+  <div class="row1 ef">
+    <label>Deposit Deadline</label>
+    <input type="text" id="f-deadline" placeholder="e.g. Friday May 10th by 5:00 PM" oninput="update()">
+  </div>
+
+  <div class="row1 ef">
+    <label>Photos (optional)</label>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
+      <div>
+        <div style="font-size:9px; color:#7A6A4A; margin-bottom:4px;">Inspo photo</div>
+        <div class="photo-upload-row">
+          <label for="f-inspo-file" style="flex:1;background:#0F2D1F;color:#B8872A;border:none;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;display:block;">Upload</label>
+          <button class="secondary" onclick="toggleUrl('inspo')">Link</button>
+        </div>
+        <input type="file" id="f-inspo-file" accept="image/*" style="display:none;" onchange="loadFile('f-inspo-file','o-inspo-img','o-inspo-slot')">
+        <div id="inspo-url-row" style="display:none; margin-top:4px;">
+          <input type="url" id="f-inspo-url" placeholder="Paste image URL" oninput="loadUrl('f-inspo-url','o-inspo-img','o-inspo-slot')" style="font-size:11px; width:100%; font-family:inherit; color:#1A1A18; background:#fff; border:1px solid #D4B87A; border-radius:6px; padding:5px 8px; outline:none;">
+        </div>
+        <div class="photo-thumb-row">
+          <img id="inspo-thumb">
+          <button id="inspo-clear" onclick="clearPhoto('inspo')">Remove</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:9px; color:#7A6A4A; margin-bottom:4px;">Natural hair photo</div>
+        <div class="photo-upload-row">
+          <label for="f-natural-file" style="flex:1;background:#0F2D1F;color:#B8872A;border:none;padding:7px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;display:block;">Upload</label>
+          <button class="secondary" onclick="toggleUrl('natural')">Link</button>
+        </div>
+        <input type="file" id="f-natural-file" accept="image/*" style="display:none;" onchange="loadFile('f-natural-file','o-natural-img','o-natural-slot')">
+        <div id="natural-url-row" style="display:none; margin-top:4px;">
+          <input type="url" id="f-natural-url" placeholder="Paste image URL" oninput="loadUrl('f-natural-url','o-natural-img','o-natural-slot')" style="font-size:11px; width:100%; font-family:inherit; color:#1A1A18; background:#fff; border:1px solid #D4B87A; border-radius:6px; padding:5px 8px; outline:none;">
+        </div>
+        <div class="photo-thumb-row">
+          <img id="natural-thumb">
+          <button id="natural-clear" onclick="clearPhoto('natural')">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row1 ef">
+    <label>Stylist Comments (optional)</label>
+    <input type="text" id="f-comments" placeholder="e.g. Based on your photos, your stylist is ready for this look." oninput="update()">
+  </div>
+
+  <div class="row1 ef">
+    <label>A Note from Cousins (optional)</label>
+    <input type="text" id="f-notes" placeholder="e.g. Jordyn will handle your takedown before service." oninput="update()">
+  </div>
+
+  <div class="row1 ef">
+    <label>Hair / Appointment Notes (optional)</label>
+    <input type="text" id="f-hair-notes" placeholder="e.g. Human hair added for loc install. Hair deposit included in today's payment." oninput="update()">
+    <div style="font-size:9px; color:#7A6A4A; font-style:italic; margin-top:4px; line-height:1.5;">Enter any hair details or appointment notes the client should review before paying. Leave blank if not applicable.</div>
+  </div>
+
+  <div class="row1 ef">
+    <label>Estimated Appointment Time (optional)</label>
+    <input type="text" id="f-duration" placeholder="e.g. 6 to 8 hours · Two-day service" oninput="update()">
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:8px;">
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
+      <input type="checkbox" id="f-long-appt" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Long Appointment</strong> &nbsp;— auto-adds comfort and maintenance note to card</span>
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
+      <input type="checkbox" id="f-deposit-received" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Deposit Received</strong> &nbsp;— marks confirmation as paid (internal only)</span>
+    </label>
+  </div>
+
+  <div style="font-size:9px; color:#7A6A4A; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:5px;">Preparation Checklist (only show checked items on card)</div>
+  <div style="display:flex; flex-direction:column; gap:5px; margin-bottom:10px;">
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;"><input type="checkbox" class="f-prep" value="Hair completely detangled" onchange="update()" style="accent-color:#0F2D1F;"> Hair completely detangled</label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;"><input type="checkbox" class="f-prep" value="No product buildup" onchange="update()" style="accent-color:#0F2D1F;"> No product buildup</label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;"><input type="checkbox" class="f-prep" value="Hair washed" onchange="update()" style="accent-color:#0F2D1F;"> Hair washed</label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;"><input type="checkbox" class="f-prep" value="Extensions purchased" onchange="update()" style="accent-color:#0F2D1F;"> Extensions purchased</label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;"><input type="checkbox" class="f-prep" value="Consultation complete" onchange="update()" style="accent-color:#0F2D1F;"> Consultation complete</label>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" onclick="update()">Preview</button>
+    <button class="btn-secondary" onclick="downloadPDF()" id="btn-pdf">Download PDF</button>
+  </div>
+</div>
+
+<!-- CLIENT CARD -->
+<div class="card">
+
+  <div class="card-header">
+    <div class="gold-rule"></div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+      <div class="studio-name">Cousins Styling Studio</div>
+      <div id="o-appt-id" style="font-size:9px; color:#4A5A4A; font-family:monospace; letter-spacing:0.05em;"></div>
+    </div>
+    <h1 id="o-headline">Your appointment has been reserved.</h1>
+    <p class="card-sub">Your booking details are below.</p>
+    <div id="o-deposit-stamp" style="display:none; margin-top:10px; background:rgba(44,84,64,.6); border:1px solid rgba(201,168,76,.3); border-radius:8px; padding:10px 14px;">
+      <div style="font-size:10px; font-weight:700; color:#C9A84C; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:3px;">Deposit Confirmed</div>
+      <div style="font-size:12px; color:#C8D8C8; line-height:1.5;">Thank you. Your appointment has been secured.</div>
+    </div>
+    <div id="o-deposit-stamp-internal" style="display:none; font-size:9px; color:#C9A84C; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px; opacity:0.6;">Internal: Deposit Received</div>
+  </div>
+
+  <div class="appt-bar">
+    <div class="appt-service" id="o-service-stylist">Service with Stylist</div>
+    <div class="appt-detail" id="o-datetime">Date · Time · Moreno Valley, CA</div>
+  </div>
+
+  <div class="card-body">
+
+    <!-- NOTE FROM COUSINS -->
+    <div class="block" id="o-notes-block" style="display:none;">
+      <div class="block-title">A Note from Cousins</div>
+      <div class="notes-box" id="o-notes-text"></div>
+    </div>
+
+    <!-- DURATION -->
+    <div class="block" id="o-duration-block" style="display:none;">
+      <div class="block-title">Estimated Appointment Time</div>
+      <div style="font-size:14px; font-weight:600; color:#0F2D1F;" id="o-duration-text"></div>
+    </div>
+
+    <!-- LONG APPOINTMENT NOTE -->
+    <div class="block" id="o-long-appt-block" style="display:none;">
+      <div class="block-title">Extended Service Note</div>
+      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.<br><br>Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+    </div>
+
+    <!-- PREP CHECKLIST -->
+    <div class="block" id="o-prep-block" style="display:none;">
+      <div class="block-title">Before You Arrive</div>
+      <div id="o-prep-list" style="display:flex; flex-direction:column; gap:6px;"></div>
+    </div>
+
+    <!-- PHOTOS + COMMENTS (first instance, in card body top) -->
+    <div class="block" id="o-photos-block" style="display:none;">
+      <div class="block-title">What We Are Working With</div>
+      <div class="photo-grid" id="o-photo-grid">
+        <div class="photo-slot" id="o-inspo-slot">
+          <div class="photo-slot-label">Your Inspo</div>
+          <img id="o-inspo-img" src="" alt="Inspo">
+        </div>
+        <div class="photo-slot" id="o-natural-slot">
+          <div class="photo-slot-label">Your Current Hair</div>
+          <img id="o-natural-img" src="" alt="Natural hair">
+        </div>
+      </div>
+      <div style="font-size:10.5px; color:#7A6A4A; margin-top:6px; line-height:1.5;">Your photos are kept private and used only to prepare your stylist. <a href="https://bookcousins.com/terms" target="_blank" style="color:#B8872A; font-weight:600;">View our photo policy at bookcousins.com/terms.</a></div>
+      <div class="stylist-comments" id="o-comments-box" style="display:none;"><span id="o-comments-text"></span></div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Before Your Appointment</div>
+      <div class="visual-steps">
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Send your deposit</div>
+            <div class="vstep-desc">Zelle <strong>(951) 653-4477</strong>. Include your name and appointment date in the notes.</div>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Arrive ready</div>
+            <div class="vstep-desc">Hair must be <strong>out of any braids, twists, or protective styles</strong> and fully detangled.</div>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Pay your balance at the end</div>
+            <div class="vstep-desc">Remaining balance is due at checkout. We accept Zelle, cash, and card.</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:10px;">Still have braids, twists, or a protective style in? We can take it down for you before your service. Add a <strong>$20 takedown</strong> to your appointment and arrive as you are. Your stylist will remove your previous style and get you ready to go.</div>
+    </div>
+
+    <!-- HAIR / APPOINTMENT NOTES -->
+    <div class="block" id="o-hair-notes-block" style="display:none;">
+      <div class="block-title">Hair / Appointment Notes</div>
+      <p style="font-size:12px; color:#5A5A52; margin-bottom:8px; line-height:1.6;">Please review the details below before sending your deposit.</p>
+      <div class="notes-box" id="o-hair-notes-text"></div>
+    </div>
+
+    <!-- CONFIRMATION SUMMARY -->
+    <div class="block" id="o-summary-block" style="display:none;">
+      <div class="block-title">Please Verify Before Paying</div>
+      <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;" id="o-summary-list"></div>
+      <div style="font-size:11px; color:#7A6A4A; font-style:italic; line-height:1.6;">Sending your deposit confirms these details are accurate.</div>
+    </div>
+
+    <!-- BALANCE -->
+    <div class="block">
+      <div class="block-title">Your Appointment Total</div>
+      <div style="background:#F5F0E8; border-left:3px solid #B8872A; border-radius:0 8px 8px 0; padding:10px 12px; font-size:12px; color:#3A2A0A; line-height:1.65; margin-bottom:12px;">
+        <strong>Please Review Before Sending Your Deposit</strong><br>
+        Please review your appointment details, service total, deposit amount, and any hair or appointment notes before sending payment. Sending your deposit confirms the information listed here is correct.
+      </div>
+      <table class="balance-table">
+        <tr><td>Service total</td><td id="o-total">$—</td></tr>
+        <tr class="deposit-row"><td>Total deposit due now</td><td id="o-deposit-amt">− $25</td></tr>
+        <tr class="due-row"><td>Remaining balance due on your appointment day</td><td id="o-balance">$—</td></tr>
+      </table>
+      <div id="o-deadline-box" style="display:none; margin-top:8px;">
+        <div class="deadline-pill">Deposit due by <strong id="o-deadline"></strong></div>
+      </div>
+      <div class="zelle-box">
+        <div class="zelle-line"><strong>Zelle</strong> &nbsp;(951) 653-4477</div>
+        <div class="zelle-note">Recipient name: <strong>Black Sheep Investments LLC</strong>. Your total deposit may include your appointment deposit, hair deposit, or specialty hair sourcing deposit depending on your service. Please include your <strong>name and appointment date</strong> in the notes.</div>
+        <div class="zelle-line" style="margin-top:8px;"><strong>Want to pay in full now?</strong> &nbsp;Use the Zelle info above to send your full service total. Just note it in the message.</div>
+        <div class="zelle-line" style="margin-top:4px;"><strong>Cash or card</strong> &nbsp;also accepted for remaining balance at your appointment</div>
+      </div>
+    </div>
+
+    <!-- PHOTOS + COMMENTS (second instance) -->
+  </div>
+
+  <div class="terms-bar">
+    <p class="terms-text">By sending your deposit you confirm that you have read and agree to our <a href="https://bookcousins.com/terms" target="_blank">Terms and Policies</a>. All policies including cancellation, lateness, refunds, and hair are available at <a href="https://bookcousins.com/terms" target="_blank">bookcousins.com/terms</a>.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="card-footer">
+    <div class="footer-studio">Cousins Styling Studio</div>
+    <div class="footer-q">Questions before your visit?</div>
+    <a class="footer-phone" href="tel:9516534477">(951) 653-4477</a>
+    <div class="footer-addr">22700 Alessandro Blvd STE A · Moreno Valley, CA 92553<br>bookcousins.com</div>
+    <div style="margin-top:12px; display:flex; flex-direction:column; align-items:center; gap:4px;">
+      <img src="assets/qr-policies.png" alt="Scan for policies" style="border-radius:6px; width:72px; height:72px;" onerror="this.style.display='none'">
+      <div style="font-size:9px; color:#4A5A4A; letter-spacing:0.05em;">Scan for policies &amp; prep guide</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function update() {
+  const client   = document.getElementById('f-client').value.trim();
+  const service  = document.getElementById('f-service').value.trim();
+  const stylist  = document.getElementById('f-stylist').value.trim();
+  const date     = document.getElementById('f-date').value.trim();
+  const time     = document.getElementById('f-time').value.trim();
+  const total    = parseFloat(document.getElementById('f-total').value) || 0;
+  const deposit  = parseFloat(document.getElementById('f-deposit').value) || 25;
+  const deadline = document.getElementById('f-deadline').value.trim();
+  const comments   = document.getElementById('f-comments').value.trim();
+  const notes      = document.getElementById('f-notes').value.trim();
+  const hairNotes  = document.getElementById('f-hair-notes').value.trim();
+  const duration   = document.getElementById('f-duration').value.trim();
+  const longAppt   = document.getElementById('f-long-appt').checked;
+  const depositRcvd = document.getElementById('f-deposit-received').checked;
+  // Deposit validation
+  const warning = document.getElementById('deposit-warning');
+  if (total > 0 && deposit > total) {
+    warning.style.display = 'block';
+  } else {
+    warning.style.display = 'none';
+  }
+  const safeDeposit = (total > 0 && deposit > total) ? total : deposit;
+  const balance = total > 0 ? total - safeDeposit : 0;
+
+  // Appointment ID: CSS-YYMMDD-XXX from client initials
+  function genId() {
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const initials = client ? client.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 3) : 'CSN';
+    return 'CSS-' + yy + mm + dd + '-' + initials;
+  }
+
+  document.getElementById('o-appt-id').textContent = (client || date) ? genId() : '';
+
+  // Deposit stamp: client-facing confirmation + internal label
+  const depositRcvdChecked = document.getElementById('f-deposit-received').checked;
+  document.getElementById('o-deposit-stamp').style.display = depositRcvdChecked ? 'block' : 'none';
+  document.getElementById('o-deposit-stamp-internal').style.display = depositRcvdChecked ? 'block' : 'none';
+  function formatDate(raw) {
+    const m = raw.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
+    if (!m) return raw;
+    const month = parseInt(m[1]) - 1;
+    const day = parseInt(m[2]);
+    let year = m[3] ? parseInt(m[3]) : new Date().getFullYear();
+    if (year < 100) year += 2000;
+    const d = new Date(year, month, day);
+    if (isNaN(d.getTime())) return raw;
+    return d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  }
+
+  // Auto appointment ID based on client + date
+  function genId() {
+    const num = (client + date).split('').reduce((a,c) => a + c.charCodeAt(0), 10000);
+    return 'CSS-' + new Date().getFullYear() + '-' + String(num).slice(-5);
+  }
+
+  document.getElementById('o-appt-id').textContent = (client || date) ? genId() : '';
+  document.getElementById('o-deposit-stamp').style.display = depositRcvd ? 'block' : 'none';
+
+  document.getElementById('o-service-stylist').textContent =
+    (service || 'Service') + (stylist ? ' with ' + stylist : '');
+  document.getElementById('o-datetime').textContent =
+    (formatDate(date) || 'Date') + (time ? ' at ' + time : '') + ' \u00B7 Moreno Valley, CA';
+
+  document.getElementById('o-total').textContent = total > 0 ? '$' + total.toFixed(2).replace(/\.00$/, '') : '$\u2014';
+  document.getElementById('o-deposit-amt').textContent = '\u2212 $' + safeDeposit.toFixed(2).replace(/\.00$/, '');
+  document.getElementById('o-balance').textContent = total > 0 ? '$' + balance.toFixed(2).replace(/\.00$/, '') : '$\u2014';
+  document.getElementById('o-balance-display').textContent = total > 0 ? '$' + balance.toFixed(2).replace(/\.00$/, '') : '$\u2014';
+
+  // Confirmation summary
+  const summaryItems = [];
+  if (service) summaryItems.push({ label: 'Service', val: service });
+  if (date) summaryItems.push({ label: 'Date', val: formatDate(date) });
+  if (time) summaryItems.push({ label: 'Time', val: time });
+  if (stylist) summaryItems.push({ label: 'Stylist', val: stylist });
+  if (duration) summaryItems.push({ label: 'Estimated duration', val: duration });
+  if (hairNotes) summaryItems.push({ label: 'Hair / appointment notes', val: hairNotes });
+  if (total > 0) summaryItems.push({ label: 'Deposit due now', val: '$' + safeDeposit.toFixed(2).replace(/\.00$/, '') });
+  const summaryBlock = document.getElementById('o-summary-block');
+  const summaryList = document.getElementById('o-summary-list');
+  if (summaryItems.length > 0) {
+    summaryBlock.style.display = 'block';
+    summaryList.innerHTML = summaryItems.map(item =>
+      `<div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#2A2A22;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
+        <span><strong>${item.label}:</strong> ${item.val}</span>
+      </div>`
+    ).join('');
+  } else {
+    summaryBlock.style.display = 'none';
+  }
+
+  const db = document.getElementById('o-deadline-box');
+  if (deadline) { db.style.display = 'block'; document.getElementById('o-deadline').textContent = deadline; }
+  else db.style.display = 'none';
+
+  // Duration
+  const durBlock = document.getElementById('o-duration-block');
+  if (duration) { durBlock.style.display = 'block'; document.getElementById('o-duration-text').textContent = duration; }
+  else durBlock.style.display = 'none';
+
+  // Long appointment note
+  document.getElementById('o-long-appt-block').style.display = longAppt ? 'block' : 'none';
+
+  // Prep checklist
+  const prepChecks = document.querySelectorAll('.f-prep:checked');
+  const prepBlock = document.getElementById('o-prep-block');
+  const prepList = document.getElementById('o-prep-list');
+  if (prepChecks.length > 0) {
+    prepBlock.style.display = 'block';
+    prepList.innerHTML = Array.from(prepChecks).map(cb =>
+      `<div style="display:flex;gap:8px;align-items:center;font-size:13px;color:#2A2A22;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        ${cb.value}
+      </div>`
+    ).join('');
+  } else {
+    prepBlock.style.display = 'none';
+  }
+
+  const commentsBox = document.getElementById('o-comments-box');
+  if (comments) { commentsBox.style.display = 'block'; document.getElementById('o-comments-text').textContent = comments; }
+  else commentsBox.style.display = 'none';
+
+  const notesBlock = document.getElementById('o-notes-block');
+  if (notes) { notesBlock.style.display = 'block'; document.getElementById('o-notes-text').textContent = notes; }
+  else notesBlock.style.display = 'none';
+
+  const hairNotesBlock = document.getElementById('o-hair-notes-block');
+  if (hairNotes) { hairNotesBlock.style.display = 'block'; document.getElementById('o-hair-notes-text').textContent = hairNotes; }
+  else hairNotesBlock.style.display = 'none';
+
+  const inspoVisible = document.getElementById('o-inspo-slot').style.display !== 'none';
+  const naturalVisible = document.getElementById('o-natural-slot').style.display !== 'none';
+  document.getElementById('o-photos-block').style.display = (inspoVisible || naturalVisible || comments) ? 'block' : 'none';
+}
+
+function loadFile(inputId, imgId, slotId) {
+  const file = document.getElementById(inputId).files[0];
+  if (!file) return;
+  const type = inputId.includes('inspo') ? 'inspo' : 'natural';
+  const reader = new FileReader();
+  reader.onload = function(e) { showPhoto(e.target.result, imgId, slotId, type); };
+  reader.readAsDataURL(file);
+}
+
+function loadUrl(inputId, imgId, slotId) {
+  let url = document.getElementById(inputId).value.trim();
+  if (!url) return;
+  const type = inputId.includes('inspo') ? 'inspo' : 'natural';
+  const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch) url = 'https://lh3.googleusercontent.com/d/' + driveMatch[1];
+  url = url.replace('www.dropbox.com','dl.dropboxusercontent.com').replace('dl=0','raw=1');
+  showPhoto(url, imgId, slotId, type);
+}
+
+function showPhoto(src, imgId, slotId, type) {
+  const img = document.getElementById(imgId);
+  const slot = document.getElementById(slotId);
+  const thumb = document.getElementById(type + '-thumb');
+  const clearBtn = document.getElementById(type + '-clear');
+  img.onload = function() {
+    slot.style.display = 'block';
+    if (thumb) { thumb.src = src; thumb.style.display = 'block'; }
+    if (clearBtn) clearBtn.style.display = 'inline';
+    document.getElementById('o-photos-block').style.display = 'block';
+  };
+  img.onerror = function() { alert('Photo could not load. Try uploading from device.'); };
+  img.src = src;
+}
+
+function toggleUrl(type) {
+  const row = document.getElementById(type + '-url-row');
+  row.style.display = row.style.display === 'none' ? 'block' : 'none';
+}
+
+function clearPhoto(type) {
+  const imgId = type === 'inspo' ? 'o-inspo-img' : 'o-natural-img';
+  const slotId = type === 'inspo' ? 'o-inspo-slot' : 'o-natural-slot';
+  document.getElementById(imgId).src = '';
+  document.getElementById(slotId).style.display = 'none';
+  document.getElementById(type + '-thumb').style.display = 'none';
+  document.getElementById(type + '-clear').style.display = 'none';
+  const inspoVisible = document.getElementById('o-inspo-slot').style.display !== 'none';
+  const naturalVisible = document.getElementById('o-natural-slot').style.display !== 'none';
+  const comments = document.getElementById('f-comments').value.trim();
+  if (!inspoVisible && !naturalVisible && !comments) {
+    document.getElementById('o-photos-block').style.display = 'none';
+  }
+}
+
+function downloadPDF() {
+  const btn = document.getElementById('btn-pdf');
+  const origText = btn.textContent;
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+
+  const card = document.querySelector('.card');
+  const clientName = document.getElementById('f-client').value.trim() || 'Cousin';
+  const date = document.getElementById('f-date').value.trim() || 'Appointment';
+  const filename = 'Cousins_' + clientName.replace(/\s+/g,'_') + '_' + date.replace(/[^a-zA-Z0-9]/g,'_') + '.pdf';
+
+  const opt = {
+    margin: 0,
+    filename: filename,
+    image: { type: 'jpeg', quality: 0.97 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#FAFAF7',
+      logging: false
+    },
+    jsPDF: { unit: 'px', format: [440, 1200], orientation: 'portrait', hotfixes: ['px_scaling'] },
+    pagebreak: { mode: 'avoid-all' }
+  };
+
+  html2pdf().set(opt).from(card).save().then(function() {
+    btn.textContent = '\u2713 Ready to Send';
+    btn.style.background = '#2C5440';
+    setTimeout(function() {
+      btn.textContent = origText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 2000);
+  }).catch(function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    alert('PDF generation failed. Try the Preview button first, then try again.');
+  });
+}
+</script>
+</body>
+</html>
