@@ -281,7 +281,11 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:8px;">
     <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
       <input type="checkbox" id="f-long-appt" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
-      <span><strong>Long Appointment</strong> &nbsp;— auto-adds comfort and maintenance note to card</span>
+      <span><strong>Long Appointment</strong> &nbsp;— adds comfort note (snacks, water, neck pillow, headphones)</span>
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
+      <input type="checkbox" id="f-loc-note" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Loc Install</strong> &nbsp;— adds slippage and maintenance appointment note</span>
     </label>
     <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
       <input type="checkbox" id="f-deposit-received" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
@@ -346,7 +350,13 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     <!-- LONG APPOINTMENT NOTE -->
     <div class="block" id="o-long-appt-block" style="display:none;">
       <div class="block-title">Extended Service Note</div>
-      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.<br><br>Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.</div>
+    </div>
+
+    <!-- LOC INSTALL NOTE -->
+    <div class="block" id="o-loc-note-block" style="display:none;">
+      <div class="block-title">Loc Install Note</div>
+      <div class="callout">Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
     </div>
 
     <!-- PREP CHECKLIST -->
@@ -473,6 +483,7 @@ function update() {
   const hairNotes  = document.getElementById('f-hair-notes').value.trim();
   const duration   = document.getElementById('f-duration').value.trim();
   const longAppt   = document.getElementById('f-long-appt').checked;
+  const locNote    = document.getElementById('f-loc-note').checked;
   const depositRcvd = document.getElementById('f-deposit-received').checked;
   // Deposit validation
   const warning = document.getElementById('deposit-warning');
@@ -565,6 +576,9 @@ function update() {
 
   // Long appointment note
   document.getElementById('o-long-appt-block').style.display = longAppt ? 'block' : 'none';
+
+  // Loc install note
+  document.getElementById('o-loc-note-block').style.display = locNote ? 'block' : 'none';
 
   // Prep checklist
   const prepChecks = document.querySelectorAll('.f-prep:checked');
@@ -669,6 +683,7 @@ function copyClientLink() {
     notes:       document.getElementById('f-notes').value.trim(),
     hairNotes:   document.getElementById('f-hair-notes').value.trim(),
     longAppt:    document.getElementById('f-long-appt').checked ? '1' : '',
+    locNote:     document.getElementById('f-loc-note').checked ? '1' : '',
     depositRcvd: document.getElementById('f-deposit-received').checked ? '1' : '',
   };
   Object.entries(fields).forEach(([k, v]) => { if (v) params.set(k, v); });
