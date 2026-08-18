@@ -536,7 +536,8 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
       <div class="block-title">Your Appointment Total</div>
       <div style="background:#F5F0E8; border-left:3px solid #B8872A; border-radius:0 8px 8px 0; padding:10px 12px; font-size:12px; color:#3A2A0A; line-height:1.65; margin-bottom:12px;">
         <strong>Please Review Before Sending Your Deposit</strong><br>
-        Please review your appointment details, service total, deposit amount, and any hair or appointment notes before sending payment. Sending your deposit confirms the information listed here is correct.
+        Review your appointment details, deposit amount, and any notes before sending payment. Sending your deposit confirms the information is correct.<br><br>
+        <strong>Final service total is confirmed after your consultation.</strong> The deposit shown is due now to hold your appointment. Your stylist will confirm the full price before your service begins.
       </div>
       <table class="balance-table">
         <tr><td>Service total</td><td id="o-total">$—</td></tr>
@@ -698,6 +699,7 @@ function update() {
   const depositRcvdChecked = document.getElementById('f-deposit-received').checked;
   document.getElementById('o-deposit-stamp').style.display = depositRcvdChecked ? 'block' : 'none';
   document.getElementById('o-deposit-stamp-internal').style.display = depositRcvdChecked ? 'block' : 'none';
+
   function formatDate(raw) {
     const m = raw.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
     if (!m) return raw;
@@ -710,19 +712,12 @@ function update() {
     return d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
   }
 
-  // Auto appointment ID based on client + date
-  function genId() {
-    const num = (client + date).split('').reduce((a,c) => a + c.charCodeAt(0), 10000);
-    return 'CSS-' + new Date().getFullYear() + '-' + String(num).slice(-5);
-  }
-
-  document.getElementById('o-appt-id').textContent = (client || date) ? genId() : '';
-  document.getElementById('o-deposit-stamp').style.display = depositRcvd ? 'block' : 'none';
-
   document.getElementById('o-service-stylist').textContent =
     (service || 'Service') + (stylist ? ' with ' + stylist : '');
-  document.getElementById('o-datetime').textContent =
-    (formatDate(date) || 'Date') + (time ? ' at ' + time : '') + ' \u00B7 Moreno Valley, CA';
+
+  const dateDisplay = date ? (formatDate(date) || date) : 'Date to be confirmed';
+  const timeDisplay = time ? ' at ' + time : '';
+  document.getElementById('o-datetime').textContent = dateDisplay + timeDisplay + ' \u00B7 Moreno Valley, CA';
 
   document.getElementById('o-total').textContent = total > 0 ? '$' + total.toFixed(2).replace(/\.00$/, '') : '$\u2014';
   document.getElementById('o-deposit-amt').textContent = '\u2212 $' + safeDeposit.toFixed(2).replace(/\.00$/, '');
@@ -732,8 +727,8 @@ function update() {
   // Confirmation summary
   const summaryItems = [];
   if (service) summaryItems.push({ label: 'Service', val: service });
-  if (date) summaryItems.push({ label: 'Date', val: formatDate(date) });
-  if (time) summaryItems.push({ label: 'Time', val: time });
+  summaryItems.push({ label: 'Date', val: date ? (formatDate(date) || date) : 'To be confirmed' });
+  summaryItems.push({ label: 'Time', val: time || 'To be confirmed' });
   if (stylist) summaryItems.push({ label: 'Stylist', val: stylist });
   if (duration) summaryItems.push({ label: 'Estimated duration', val: duration });
   if (hairNotes) summaryItems.push({ label: 'Hair / appointment notes', val: hairNotes });
