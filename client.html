@@ -5,96 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Your Booking Confirmation | Cousins Styling Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem 3rem; }
+:root{
+  --green-dark:#0F1F16;
+  --green:#1C3528;
+  --green-mid:#2C5440;
+  --gold:#B8860B;
+  --gold-soft:#C9A84C;
+  --linen:#F0EDE4;
+  --stone:#D4C5A9;
+  --sans:'DM Sans',Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--linen);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px}
 
 /* CARD */
-.card { background: #FAFAF7; width: 100%; max-width: 420px; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.12); }
-.card-header { background: #0F2D1F; padding: 1.5rem 1.75rem; }
-.gold-rule { width: 36px; height: 3px; background: #D4A843; border-radius: 2px; margin-bottom: 1rem; }
-.studio-name { font-size: 10px; font-weight: 600; color: #B8860B; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
-.card-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #F0EDE4; line-height: 1.2; margin-bottom: 5px; }
-.card-sub { font-size: 12px; color: #6A7A6A; }
+.card{background:#FAFAF7;width:100%;max-width:420px;border-radius:20px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,.12)}
+
+/* HEADER */
+.card-header{background:var(--green-dark);padding:28px 28px 22px}
+.gold-rule{width:36px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:16px}
+.studio-name{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+.card-header h1{font-family:var(--serif);font-size:clamp(20px,5vw,26px);font-weight:700;color:var(--linen);line-height:1.2;margin-bottom:5px}
+.card-sub{font-size:12px;color:#6A7A6A}
 
 /* APPT BAR */
-.appt-bar { background: #B8860B; padding: 12px 1.75rem; }
-.appt-service { font-size: 14px; font-weight: 600; color: #1C3528; margin-bottom: 2px; }
-.appt-detail { font-size: 12px; color: rgba(28,53,40,0.8); }
+.appt-bar{background:var(--gold);padding:12px 28px}
+.appt-service{font-size:14px;font-weight:600;color:var(--green);margin-bottom:2px}
+.appt-detail{font-size:12px;color:rgba(28,53,40,.75)}
+.appt-client{font-size:11px;color:rgba(28,53,40,.55);margin-top:2px}
 
 /* BODY */
-.card-body { padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
-.block { padding-bottom: 1rem; border-bottom: 1px solid #E8E4DA; }
-.block:last-child { border-bottom: none; padding-bottom: 0; }
-.block-title { font-size: 9px; font-weight: 700; color: #B8860B; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.block-title::after { content: ''; flex: 1; height: 1px; background: #B8860B; opacity: 0.25; }
+.card-body{padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.block{padding-bottom:14px;border-bottom:1px solid #E8E4DA}
+.block:last-child{border-bottom:none;padding-bottom:0}
+.block-title{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.block-title::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.25}
 
 /* BALANCE TABLE */
-.balance-table { width: 100%; border-collapse: collapse; }
-.balance-table td { padding: 8px 0; font-size: 13px; color: #2A2A22; border-bottom: 1px solid #F0EDE4; line-height: 1.4; }
-.balance-table tr:last-child td { border-bottom: none; font-weight: 700; color: #0F2D1F; font-size: 14px; padding-top: 10px; }
-.balance-table td:last-child { text-align: right; font-weight: 600; }
-.balance-table .deposit-row td { color: #8B2000; }
-.balance-table .due-row td { color: #0F2D1F; }
+.balance-table{width:100%;border-collapse:collapse}
+.balance-table td{padding:7px 0;font-size:13px;color:#2A2A22;border-bottom:1px solid #F0EDE4;line-height:1.4}
+.balance-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--green);font-size:14px;padding-top:10px}
+.balance-table td:last-child{text-align:right;font-weight:600}
+.balance-table .deposit-row td{color:#8B2000}
 
-/* ZELLE */
-.zelle-box { background: #0F2D1F; border-radius: 10px; padding: 12px 14px; margin-top: 10px; }
-.zelle-line { font-size: 12px; color: #C8D8C8; line-height: 1.5; margin-bottom: 4px; }
-.zelle-line:last-child { margin-bottom: 0; }
-.zelle-line strong { color: #D4A843; }
-.zelle-note { font-size: 11px; color: #8A9E8A; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.08); line-height: 1.5; }
-.deadline-pill { background: #FDECEA; border: 1px solid #d4a4a0; border-radius: 6px; padding: 5px 10px; font-size: 12px; color: #7A1A1A; margin-bottom: 8px; display: inline-block; }
+/* ZELLE BOX */
+.zelle-box{background:var(--green);border-radius:10px;padding:14px 16px;margin-top:10px}
+.zelle-line{font-size:12px;color:#C8D8C8;line-height:1.6;margin-bottom:4px}
+.zelle-line:last-child{margin-bottom:0}
+.zelle-line strong{color:var(--gold-soft)}
+.zelle-note{font-size:11px;color:#6A7A6A;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.07);line-height:1.55}
+.deadline-pill{background:#FDECEA;border:1px solid #d4a4a0;border-radius:6px;padding:5px 10px;font-size:12px;color:#7A1A1A;margin-bottom:8px;display:inline-block}
 
-/* NOTES + CALLOUT */
-.notes-box { background: #F5F0E8; border-left: 3px solid #B8860B; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 13px; color: #3A2A0A; line-height: 1.65; }
-.callout { background: #F5F0E8; border-left: 3px solid #B8860B; border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 12px; color: #3A2A0A; line-height: 1.65; margin-top: 8px; }
+/* NOTES / CALLOUT */
+.notes-box{background:#F5F0E8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:13px;color:#3A2A0A;line-height:1.65}
+.callout{background:#F5F0E8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#3A2A0A;line-height:1.65}
 
-/* STEPS */
-.visual-steps { display: flex; flex-direction: column; gap: 0; }
-.vstep { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #F0EDE4; }
-.vstep:last-child { border-bottom: none; }
-.vstep-icon { display:flex; align-items:center; justify-content:center; flex-shrink:0; width:32px; height:32px; background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2); border-radius:8px; margin-top:2px; }
-.vstep-body { flex: 1; }
-.vstep-title { font-size: 13px; font-weight: 700; color: #0F2D1F; margin-bottom: 2px; }
-.vstep-desc { font-size: 12px; color: #5A5A52; line-height: 1.5; }
+/* BEFORE YOUR APPOINTMENT STEPS */
+.vstep{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #F0EDE4}
+.vstep:last-child{border-bottom:none}
+.vstep-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.2);border-radius:8px;margin-top:2px}
+.vstep-body{}
+.vstep-title{font-size:13px;font-weight:700;color:var(--green);margin-bottom:2px}
+.vstep-desc{font-size:12px;color:#5A5A52;line-height:1.55}
 
-/* DEPOSIT STAMP */
-.deposit-confirmed { background:rgba(44,84,64,.6); border:1px solid rgba(201,168,76,.3); border-radius:8px; padding:10px 14px; margin-top:10px; }
-.deposit-confirmed-title { font-size:10px; font-weight:700; color:#C9A84C; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:3px; }
-.deposit-confirmed-body { font-size:12px; color:#C8D8C8; line-height:1.5; }
+/* LOC PROCESS */
+.loc-process-block{background:#F5F0E8;border-radius:10px;padding:14px}
+.loc-day{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #E8E4DA}
+.loc-day:last-child{border-bottom:none}
+.loc-day-num{width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;font-weight:700;color:var(--gold-soft);flex-shrink:0}
+.loc-day-label{font-size:12px;font-weight:700;color:var(--green);margin-bottom:1px}
+.loc-day-date{font-size:11px;color:var(--gold);font-weight:600;margin-bottom:3px}
+.loc-day-desc{font-size:12px;color:#5A5A52;line-height:1.6}
+.avail-contact-box{background:var(--green);border-radius:10px;padding:12px 14px;margin-top:10px}
+.avail-contact-title{font-size:10px;font-weight:700;color:var(--gold-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.avail-contact-line{font-size:12px;color:#C8D8C8;line-height:1.6}
+.avail-contact-line strong{color:var(--gold-soft)}
 
 /* SUMMARY */
-.summary-item { display:flex; gap:8px; align-items:flex-start; font-size:12px; color:#2A2A22; }
+.summary-item{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#2A2A22;margin-bottom:6px}
+
+/* DEPOSIT CONFIRMED */
+.deposit-confirmed{background:rgba(44,84,64,.6);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 14px;margin-top:10px}
+.deposit-confirmed-title{font-size:10px;font-weight:700;color:var(--gold-soft);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.deposit-confirmed-body{font-size:12px;color:#C8D8C8;line-height:1.5}
 
 /* TERMS */
-.terms-bar { background: #F5F0E8; padding: 0.75rem 1.75rem; text-align: center; border-top: 1px solid #EDEAE2; }
-.terms-text { font-size: 11px; color: #7A6A4A; line-height: 1.7; }
-.terms-text a { color: #B8860B; font-weight: 600; }
+.terms-bar{background:#F5F0E8;padding:12px 24px;text-align:center;border-top:1px solid #EDEAE2}
+.terms-text{font-size:11px;color:#7A6A4A;line-height:1.7}
+.terms-text a{color:var(--gold);font-weight:600}
 
 /* FOOTER */
-.card-footer { background: #0F2D1F; padding: 1rem 1.75rem; text-align: center; }
-.footer-studio { font-size: 10px; font-weight: 600; color: #B8860B; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
-.footer-q { font-size: 12px; color: #6A7A6A; margin-bottom: 5px; }
-.footer-phone { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #D4A843; text-decoration: none; display: block; margin-bottom: 5px; }
-.footer-addr { font-size: 10px; color: #4A5A4A; line-height: 1.6; }
+.card-footer{background:var(--green);padding:18px 24px;text-align:center}
+.footer-studio{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.footer-q{font-size:12px;color:#6A7A6A;margin-bottom:4px}
+.footer-phone{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--gold-soft);text-decoration:none;display:block;margin-bottom:4px}
+.footer-addr{font-size:10px;color:#4A5A4A;line-height:1.6}
 
-@media print {
-  @page { margin: 0.25in; size: letter portrait; }
-  body { background: white; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .card { box-shadow: none; border-radius: 0; width: 100%; max-width: 100%; }
+@media print{
+  @page{margin:.25in;size:letter portrait}
+  body{background:white;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card{box-shadow:none;border-radius:0;width:100%;max-width:100%}
 }
 </style>
 </head>
 <body>
-
 <div class="card">
 
+  <!-- HEADER -->
   <div class="card-header">
     <div class="gold-rule"></div>
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
       <div class="studio-name">Cousins Styling Studio</div>
-      <div id="o-appt-id" style="font-size:9px; color:#4A5A4A; font-family:monospace; letter-spacing:0.05em;"></div>
+      <div id="o-appt-id" style="font-size:9px;color:#4A5A4A;font-family:monospace;letter-spacing:.05em;"></div>
     </div>
     <h1 id="o-headline">Your appointment has been reserved.</h1>
     <p class="card-sub">Your booking details are below.</p>
@@ -104,10 +129,11 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     </div>
   </div>
 
+  <!-- APPT BAR -->
   <div class="appt-bar">
     <div class="appt-service" id="o-service-stylist">Service</div>
     <div class="appt-detail" id="o-datetime">Date &middot; Moreno Valley, CA</div>
-    <div id="o-client-name" style="display:none; font-size:11px; color:rgba(28,53,40,0.6); margin-top:3px; font-weight:500;"></div>
+    <div class="appt-client" id="o-client-name" style="display:none;"></div>
   </div>
 
   <div class="card-body">
@@ -121,7 +147,7 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     <!-- DURATION -->
     <div class="block" id="o-duration-block" style="display:none;">
       <div class="block-title">Estimated Appointment Time</div>
-      <div style="font-size:14px; font-weight:600; color:#0F2D1F;" id="o-duration-text"></div>
+      <div style="font-size:14px;font-weight:600;color:var(--green);" id="o-duration-text"></div>
     </div>
 
     <!-- LONG APPOINTMENT NOTE -->
@@ -130,98 +156,152 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
       <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.</div>
     </div>
 
-    <!-- LOC INSTALL NOTE -->
+    <!-- LOC RETWIST / MAINTENANCE NOTE -->
     <div class="block" id="o-loc-note-block" style="display:none;">
-      <div class="block-title">Loc Install Note</div>
-      <div class="callout">Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+      <div class="block-title">Loc Service Note</div>
+      <div class="callout">Minor slippage during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+    </div>
+
+    <!-- LOC EXTENSION INSTALL: TWO-DAY PROCESS -->
+    <div class="block" id="o-loc-install-block" style="display:none;">
+      <div class="block-title">Your Loc Extension Install</div>
+      <p style="font-size:12px;color:#5A5A52;line-height:1.65;margin-bottom:12px;">Loc extension installs are a two-day service. Both days are required to complete your install. Please keep both dates fully available before sending your deposit.</p>
+      <div class="loc-process-block">
+        <div class="loc-day">
+          <div class="loc-day-num">1</div>
+          <div>
+            <div class="loc-day-label">Day 1 &nbsp;·&nbsp; Installation &nbsp;·&nbsp; Saturday</div>
+            <div class="loc-day-date" id="o-loc-day1-date"></div>
+            <div class="loc-day-desc">Your extensions are sectioned, attached, and installed. This is a full-day service. Plan to arrive on time and stay for the full session. We recommend bringing snacks, water, a neck pillow, and headphones.</div>
+          </div>
+        </div>
+        <div class="loc-day">
+          <div class="loc-day-num">2</div>
+          <div>
+            <div class="loc-day-label">Day 2 &nbsp;·&nbsp; Securing &nbsp;·&nbsp; Sunday</div>
+            <div class="loc-day-date" id="o-loc-day2-date"></div>
+            <div class="loc-day-desc">Your locs are secured, tightened at the root, and finished to ensure they hold properly. This session is shorter but essential. Both days must be completed for your install to be done correctly.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E8E4DA;border-radius:8px;padding:12px 14px;margin-top:10px;font-size:12px;color:#3A3A32;line-height:1.65;">
+        <strong style="color:var(--green);">Please note:</strong> Minor slippage during the settling period is normal and expected. Your service includes one complimentary maintenance appointment valid for 90 days from your original install date.
+      </div>
+      <div class="avail-contact-box">
+        <div class="avail-contact-title">Check Weekend Availability Before You Book</div>
+        <div class="avail-contact-line">To confirm Saturday and Sunday dates are open, text or call us at <strong>(951) 653-4477</strong> or DM us at <strong>@CousinsStylingStudio</strong>. We respond within 24 hours.</div>
+      </div>
+    </div>
+
+    <!-- SENSORY-FRIENDLY NOTE -->
+    <div class="block" id="o-sensory-block" style="display:none;">
+      <div class="block-title">Sensory-Friendly Appointment</div>
+      <div style="background:#F5F0E8;border-radius:10px;padding:14px 16px;font-size:13px;color:#3A3A32;line-height:1.7;">
+        <p style="margin-bottom:10px;">Your appointment has been set up with your comfort in mind. Here is what to expect:</p>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>We work at your pace. Let us know at any point if you need a break.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>You are welcome to bring comfort items such as headphones, a tablet, a snack, or a fidget toy.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>A caregiver or support person is welcome to stay for the full appointment.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>If you have specific needs we should know before your visit, please text us at (951) 653-4477.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLOR SERVICE DISCLAIMER -->
+    <div class="block" id="o-color-block" style="display:none;">
+      <div class="block-title">Color Service Notice</div>
+      <div style="background:#F5F0E8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;color:#3A2A0A;line-height:1.7;">
+        <strong>Patch Test Required.</strong> If you have not had a color service with us before or if it has been more than 6 months since your last chemical service, a patch test is required at least 48 hours before your appointment.<br><br>
+        <strong>Allergy Disclaimer.</strong> Color services involve chemical products that may cause reactions. By booking this service you confirm you have disclosed any known sensitivities and agree to hold Cousins Styling Studio harmless for reactions arising from undisclosed allergies.<br><br>
+        Questions? Call or text us at <strong>(951) 653-4477</strong>.
+      </div>
     </div>
 
     <!-- PREP CHECKLIST -->
     <div class="block" id="o-prep-block" style="display:none;">
       <div class="block-title">Before You Arrive</div>
-      <div id="o-prep-list" style="display:flex; flex-direction:column; gap:6px;"></div>
-    </div>
-
-    <!-- BEFORE YOUR APPOINTMENT STEPS -->
-    <div class="block">
-      <div class="block-title">Before Your Appointment</div>
-      <div class="visual-steps">
-        <div class="vstep">
-          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div class="vstep-body">
-            <div class="vstep-title">Send your deposit</div>
-            <div class="vstep-desc">Zelle <strong>(951) 653-4477</strong>. Include your name and appointment date in the notes.</div>
-          </div>
-        </div>
-        <div class="vstep">
-          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
-          <div class="vstep-body">
-            <div class="vstep-title">Arrive ready</div>
-            <div class="vstep-desc">Hair must be <strong>out of any braids, twists, or protective styles</strong> and fully detangled.</div>
-          </div>
-        </div>
-        <div class="vstep">
-          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
-          <div class="vstep-body">
-            <div class="vstep-title">Pay your balance at the end</div>
-            <div class="vstep-desc">Remaining balance is due at checkout. We accept Zelle, cash, and card.</div>
-          </div>
-        </div>
-      </div>
-      <div class="callout" style="margin-top:10px;">Still have braids, twists, or a protective style in? We can take it down for you before your service. Add a <strong>$20 takedown</strong> to your appointment and arrive as you are.</div>
+      <div id="o-prep-list" style="display:flex;flex-direction:column;gap:6px;"></div>
     </div>
 
     <!-- HAIR / APPOINTMENT NOTES -->
     <div class="block" id="o-hair-notes-block" style="display:none;">
       <div class="block-title">Hair / Appointment Notes</div>
-      <p style="font-size:12px; color:#5A5A52; margin-bottom:8px; line-height:1.6;">Please review the details below before sending your deposit.</p>
+      <p style="font-size:12px;color:#5A5A52;margin-bottom:8px;line-height:1.6;">Please review the details below before sending your deposit.</p>
       <div class="notes-box" id="o-hair-notes-text"></div>
     </div>
 
     <!-- CONFIRMATION SUMMARY -->
     <div class="block" id="o-summary-block" style="display:none;">
       <div class="block-title">Please Verify Before Paying</div>
-      <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;" id="o-summary-list"></div>
-      <div style="font-size:11px; color:#7A6A4A; font-style:italic; line-height:1.6;">Sending your deposit confirms these details are accurate.</div>
+      <div id="o-summary-list" style="margin-bottom:10px;"></div>
+      <div style="font-size:11px;color:#7A6A4A;font-style:italic;line-height:1.6;">Sending your deposit confirms these details are accurate.</div>
+    </div>
+
+    <!-- BEFORE YOUR APPOINTMENT -->
+    <div class="block">
+      <div class="block-title">Before Your Appointment</div>
+      <div>
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-soft)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Send your deposit</div>
+            <div class="vstep-desc">Zelle <strong>(951) 653-4477</strong>. Include your name and appointment date in the notes.</div>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-soft)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Arrive ready</div>
+            <div class="vstep-desc">Hair must be <strong>out of any braids, twists, or protective styles</strong> and fully detangled.</div>
+          </div>
+        </div>
+        <div class="vstep">
+          <div class="vstep-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-soft)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="vstep-body">
+            <div class="vstep-title">Pay your balance at the end</div>
+            <div class="vstep-desc">Remaining balance is due at checkout. We accept Zelle, cash, and card.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- BALANCE -->
     <div class="block">
       <div class="block-title">Your Appointment Total</div>
-      <div style="background:#F5F0E8; border-left:3px solid #B8860B; border-radius:0 8px 8px 0; padding:10px 12px; font-size:12px; color:#3A2A0A; line-height:1.65; margin-bottom:12px;">
+      <div style="background:#F5F0E8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#3A2A0A;line-height:1.65;margin-bottom:12px;">
         <strong>Please Review Before Sending Your Deposit</strong><br>
-        Please review your appointment details, service total, deposit amount, and any hair or appointment notes before sending payment. Sending your deposit confirms the information listed here is correct.
+        Review your details, total, deposit amount, and any notes before sending payment. Sending your deposit confirms the information is correct.
       </div>
       <table class="balance-table">
         <tr><td>Service total</td><td id="o-total">$—</td></tr>
         <tr class="deposit-row"><td>Total deposit due now</td><td id="o-deposit-amt">$—</td></tr>
-        <tr class="due-row"><td>Remaining balance due on your appointment day</td><td id="o-balance">$—</td></tr>
+        <tr><td>Remaining balance due on your appointment day</td><td id="o-balance">$—</td></tr>
       </table>
-      <div id="o-deadline-box" style="display:none; margin-top:8px;">
+      <div id="o-deadline-box" style="display:none;margin-top:8px;">
         <div class="deadline-pill">Deposit due by <strong id="o-deadline"></strong></div>
       </div>
       <div class="zelle-box">
         <div class="zelle-line"><strong>Zelle</strong> &nbsp;(951) 653-4477</div>
         <div class="zelle-note">Recipient name: <strong>Black Sheep Investments LLC</strong>. Your total deposit may include your appointment deposit, hair deposit, or specialty hair sourcing deposit depending on your service. Please include your <strong>name and appointment date</strong> in the notes.</div>
-        <div class="zelle-line" style="margin-top:8px;"><strong>Want to pay in full now?</strong> &nbsp;Use the Zelle info above to send your full service total. Just note it in the message.</div>
-        <div class="zelle-line" style="margin-top:4px;"><strong>Cash or card</strong> &nbsp;also accepted for remaining balance at your appointment</div>
+        <div class="zelle-line" style="margin-top:8px;"><strong>Want to pay in full now?</strong> &nbsp;Send the full service total to the Zelle above and note it in your message.</div>
+        <div class="zelle-line" style="margin-top:4px;"><strong>Cash or card</strong> &nbsp;also accepted for remaining balance at your appointment.</div>
       </div>
     </div>
 
   </div>
 
   <div class="terms-bar">
-    <p class="terms-text">By sending your deposit you confirm that you have read and agree to our <a href="https://bookcousins.com/terms" target="_blank">Terms and Policies</a>. All policies including cancellation, lateness, refunds, and hair are available at <a href="https://bookcousins.com/terms" target="_blank">bookcousins.com/terms</a>.</p>
+    <p class="terms-text">By sending your deposit you confirm you have read and agree to our <a href="https://bookcousins.com/terms" target="_blank">Terms and Policies</a>. All policies including cancellation, lateness, and refunds are available at <a href="https://bookcousins.com/terms" target="_blank">bookcousins.com/terms</a>.</p>
   </div>
 
   <div class="card-footer">
     <div class="footer-studio">Cousins Styling Studio</div>
     <div class="footer-q">Questions before your visit?</div>
     <a class="footer-phone" href="tel:9516534477">(951) 653-4477</a>
-    <div class="footer-addr">22700 Alessandro Blvd STE A &middot; Moreno Valley, CA 92553<br>bookcousins.com</div>
-    <div style="margin-top:12px; display:flex; flex-direction:column; align-items:center; gap:4px;">
-      <img src="assets/qr-policies.png" alt="Scan for policies" style="border-radius:6px; width:72px; height:72px;" onerror="this.style.display='none'">
-      <div style="font-size:9px; color:#4A5A4A; letter-spacing:0.05em;">Scan for policies &amp; prep guide</div>
+    <div class="footer-addr">22700 Alessandro Blvd Suite A &middot; Moreno Valley, CA 92553<br>bookcousins.com</div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <img src="assets/qr-policies.png" alt="Scan for policies" style="border-radius:6px;width:72px;height:72px;" onerror="this.style.display='none'">
+      <div style="font-size:9px;color:#4A5A4A;letter-spacing:.05em;">Scan for policies &amp; prep guide</div>
     </div>
   </div>
 
@@ -230,45 +310,31 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
 <script>
 (function() {
   const p = new URLSearchParams(window.location.search);
-
   function get(k) { return (p.get(k) || '').trim(); }
+  function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
+  function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+  function fmtMoney(n) { return n % 1 === 0 ? '$' + n.toFixed(0) : '$' + n.toFixed(2); }
 
   function fmt(raw) {
     const m = raw.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
     if (!m) return raw;
-    const month = parseInt(m[1]) - 1;
-    const day = parseInt(m[2]);
-    let year = m[3] ? parseInt(m[3]) : new Date().getFullYear();
-    if (year < 100) year += 2000;
-    const d = new Date(year, month, day);
+    const mo = parseInt(m[1]) - 1, dy = parseInt(m[2]);
+    let yr = m[3] ? parseInt(m[3]) : new Date().getFullYear();
+    if (yr < 100) yr += 2000;
+    const d = new Date(yr, mo, dy);
     if (isNaN(d.getTime())) return raw;
-    return d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    return d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
   }
 
-  function show(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
-  function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
-  function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
-  function fmtMoney(n) { return n % 1 === 0 ? '$' + n.toFixed(0) : '$' + n.toFixed(2); }
+  function fmtDateVal(raw) {
+    if (!raw) return '';
+    const d = new Date(raw + 'T12:00:00');
+    if (isNaN(d.getTime())) return raw;
+    return d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  }
 
-  const client   = get('client');
-  const service  = get('service');
-  const stylist  = get('stylist');
-  const date     = get('date');
-  const time     = get('time');
-  const total    = parseFloat(get('total')) || 0;
-  const deposit  = parseFloat(get('deposit')) || 0;
-  const deadline = get('deadline');
-  const duration = get('duration');
-  const notes    = get('notes');
-  const hairNotes = get('hairNotes');
-  const longAppt = get('longAppt') === '1';
-  const locNote  = get('locNote') === '1';
-  const depositRcvd = get('depositRcvd') === '1';
-  const prepRaw  = get('prep');
-  const balance  = total > 0 ? Math.max(0, total - deposit) : 0;
-
-  // Appointment ID
-  function genId() {
+  function genId(client, date) {
+    if (!client && !date) return '';
     const now = new Date();
     const yy = String(now.getFullYear()).slice(2);
     const mm = String(now.getMonth() + 1).padStart(2, '0');
@@ -276,12 +342,37 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     const initials = client ? client.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 3) : 'CSN';
     return 'CSS-' + yy + mm + dd + '-' + initials;
   }
-  setText('o-appt-id', (client || date) ? genId() : '');
 
-  // Header headline - personalized with client name
-  if (client) {
-    setText('o-headline', 'Your appointment has been reserved, ' + client + '.');
-  }
+  // Read all params
+  const client      = get('client');
+  const service     = get('service');
+  const stylist     = get('stylist');
+  const date        = get('date');
+  const time        = get('time');
+  const total       = parseFloat(get('total')) || 0;
+  const deposit     = parseFloat(get('deposit')) || 0;
+  const deadline    = get('deadline');
+  const duration    = get('duration');
+  const notes       = get('notes');
+  const hairNotes   = get('hairNotes');
+  const longAppt    = get('longAppt') === '1';
+  const locInstall  = get('locInstall') === '1';
+  const locDay1     = get('locDay1');
+  const locDay2     = get('locDay2');
+  const sensory     = get('sensory') === '1';
+  const colorNote   = get('colorNote') === '1';
+  const depositRcvd = get('depositRcvd') === '1';
+  const prepRaw     = get('prep');
+  const balance     = total > 0 ? Math.max(0, total - deposit) : 0;
+
+  // Appointment ID
+  setText('o-appt-id', genId(client, date));
+
+  // Deposit stamp
+  if (depositRcvd) show('o-deposit-stamp');
+
+  // Headline — personalized
+  if (client) setText('o-headline', 'Your appointment has been reserved, ' + client + '.');
 
   // Appt bar
   setText('o-service-stylist', (service || 'Service') + (stylist ? ' with ' + stylist : ''));
@@ -291,17 +382,29 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     if (nameEl) { nameEl.textContent = client; nameEl.style.display = 'block'; }
   }
 
-  // Notes
+  // Notes from Cousins
   if (notes) { show('o-notes-block'); setText('o-notes-text', notes); }
 
   // Duration
   if (duration) { show('o-duration-block'); setText('o-duration-text', duration); }
 
-  // Long appt
+  // Long appointment
   if (longAppt) show('o-long-appt-block');
 
-  // Loc install note
-  if (locNote) show('o-loc-note-block');
+  // Loc install two-day
+  if (locInstall) {
+    show('o-loc-install-block');
+    const d1 = document.getElementById('o-loc-day1-date');
+    const d2 = document.getElementById('o-loc-day2-date');
+    if (d1) d1.textContent = locDay1 ? fmtDateVal(locDay1) : 'Date to be confirmed';
+    if (d2) d2.textContent = locDay2 ? fmtDateVal(locDay2) : 'Date to be confirmed';
+  }
+
+  // Sensory-friendly
+  if (sensory) show('o-sensory-block');
+
+  // Color disclaimer
+  if (colorNote) show('o-color-block');
 
   // Prep checklist
   if (prepRaw) {
@@ -309,8 +412,8 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     if (items.length) {
       show('o-prep-block');
       document.getElementById('o-prep-list').innerHTML = items.map(item =>
-        `<div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#2A2A22;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
+        `<div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#2A2A22;margin-bottom:4px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
           ${item}
         </div>`
       ).join('');
@@ -322,18 +425,22 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
 
   // Confirmation summary
   const summaryItems = [];
-  if (service) summaryItems.push({ label: 'Service', val: service });
-  if (date) summaryItems.push({ label: 'Date', val: fmt(date) || date });
-  if (time) summaryItems.push({ label: 'Time', val: time });
-  if (stylist) summaryItems.push({ label: 'Stylist', val: stylist });
-  if (duration) summaryItems.push({ label: 'Estimated duration', val: duration });
-  if (hairNotes) summaryItems.push({ label: 'Hair / appointment notes', val: hairNotes });
-  if (deposit > 0) summaryItems.push({ label: 'Deposit due now', val: fmtMoney(deposit) });
+  if (service)   summaryItems.push({label:'Service', val:service});
+  if (date)      summaryItems.push({label:'Date', val:fmt(date) || date});
+  if (time)      summaryItems.push({label:'Time', val:time});
+  if (stylist)   summaryItems.push({label:'Stylist', val:stylist});
+  if (duration)  summaryItems.push({label:'Estimated duration', val:duration});
+  if (hairNotes) summaryItems.push({label:'Hair / appointment notes', val:hairNotes});
+  if (deposit > 0) summaryItems.push({label:'Deposit due now', val:fmtMoney(deposit)});
+  if (locInstall && (locDay1 || locDay2)) {
+    if (locDay1) summaryItems.push({label:'Day 1 (Install)', val:fmtDateVal(locDay1)});
+    if (locDay2) summaryItems.push({label:'Day 2 (Securing)', val:fmtDateVal(locDay2)});
+  }
   if (summaryItems.length) {
     show('o-summary-block');
     document.getElementById('o-summary-list').innerHTML = summaryItems.map(item =>
-      `<div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#2A2A22;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
+      `<div class="summary-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>
         <span><strong>${item.label}:</strong> ${item.val}</span>
       </div>`
     ).join('');
