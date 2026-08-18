@@ -169,6 +169,18 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   .photo-grid { gap: 6px; margin-bottom: 5px; }
   .zelle-box .zelle-line[style*="margin-top:8px"] { margin-top: 5px !important; }
 }
+.loc-process-block { background: #F5F0E8; border-radius: 10px; padding: 16px; margin-bottom: 0; }
+.loc-day { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #E8E4DA; }
+.loc-day:last-child { border-bottom: none; }
+.loc-day-num { width: 32px; height: 32px; background: var(--green-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; font-weight: 700; color: #C9A84C; flex-shrink: 0; }
+.loc-day-body {}
+.loc-day-label { font-size: 12px; font-weight: 700; color: #0F2D1F; margin-bottom: 2px; }
+.loc-day-date { font-size: 11px; color: #B8860B; font-weight: 600; margin-bottom: 4px; }
+.loc-day-desc { font-size: 12px; color: #5A5A52; line-height: 1.6; }
+.avail-contact-box { background: #0F2D1F; border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+.avail-contact-title { font-size: 10px; font-weight: 700; color: #C9A84C; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.avail-contact-line { font-size: 13px; color: #C8D8C8; line-height: 1.6; }
+.avail-contact-line strong { color: #D4A843; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -193,7 +205,26 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
   <h3>Fill In 6 Required Fields</h3>
   <div class="row1 ef"><label>Client Name</label><input type="text" id="f-client" placeholder="e.g. Jasmine" oninput="update()"></div>
   <div class="row2">
-    <div class="ef"><label>Service</label><input type="text" id="f-service" placeholder="e.g. Box Braids" oninput="update()"></div>
+    <div class="ef">
+      <label>Service</label>
+      <select id="f-service-select" onchange="handleServiceSelect()" style="font-family:inherit;font-size:14px;color:#1A1A18;background:var(--linen);border:1px solid #D4B87A;border-radius:6px;padding:9px 12px;width:100%;outline:none;-webkit-tap-highlight-color:transparent;">
+        <option value="">Select a service</option>
+        <option value="Loc Extension Install">Loc Extension Install</option>
+        <option value="Loc Retwist / Maintenance">Loc Retwist / Maintenance</option>
+        <option value="Box Braids">Box Braids</option>
+        <option value="Knotless Braids">Knotless Braids</option>
+        <option value="Cornrows">Cornrows</option>
+        <option value="Haircut / Fade">Haircut / Fade</option>
+        <option value="Natural Hair Styling">Natural Hair Styling</option>
+        <option value="Sew-In / Weave">Sew-In / Weave</option>
+        <option value="Wig Install">Wig Install</option>
+        <option value="Color Service">Color Service</option>
+        <option value="Blowout / Press">Blowout / Press</option>
+        <option value="Kids Cut">Kids Cut</option>
+        <option value="custom">Other / Custom</option>
+      </select>
+      <input type="text" id="f-service" placeholder="Describe the service" oninput="update()" style="display:none;margin-top:6px;font-family:inherit;font-size:14px;color:#1A1A18;background:var(--linen);border:1px solid #D4B87A;border-radius:6px;padding:9px 12px;width:100%;outline:none;">
+    </div>
     <div class="ef"><label>Stylist</label><input type="text" id="f-stylist" placeholder="e.g. Tia" oninput="update()"></div>
   </div>
   <div class="row2">
@@ -280,17 +311,40 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
 
   <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:8px;">
     <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
-      <input type="checkbox" id="f-long-appt" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
-      <span><strong>Long Appointment</strong> &nbsp;— adds comfort note (snacks, water, neck pillow, headphones)</span>
+      <input type="checkbox" id="f-loc-install" onchange="handleLocInstall()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Loc Extension Install</strong> &nbsp;— auto-fills two-day process info on card</span>
     </label>
     <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
-      <input type="checkbox" id="f-loc-note" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
-      <span><strong>Loc Install</strong> &nbsp;— adds slippage and maintenance appointment note</span>
+      <input type="checkbox" id="f-long-appt" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Long Appointment</strong> &nbsp;— adds comfort note to card</span>
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
+      <input type="checkbox" id="f-sensory" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Sensory-Friendly Appointment</strong> &nbsp;— adds low-stimulation note for kids or sensitive clients</span>
+    </label>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
+      <input type="checkbox" id="f-color-note" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
+      <span><strong>Color Service</strong> &nbsp;— adds patch test and allergy disclaimer to card</span>
     </label>
     <label style="display:flex; align-items:center; gap:8px; font-size:12px; color:#2A2A22; cursor:pointer;">
       <input type="checkbox" id="f-deposit-received" onchange="update()" style="accent-color:#0F2D1F; width:15px; height:15px; flex-shrink:0;">
       <span><strong>Deposit Received</strong> &nbsp;— marks confirmation as paid (internal only)</span>
     </label>
+  </div>
+
+  <!-- LOC INSTALL DATE FIELDS — only visible when Loc Install is checked -->
+  <div id="loc-date-fields" style="display:none; background:#F5F0E8; border-left:3px solid #B8860B; border-radius:0 8px 8px 0; padding:12px 14px; margin-bottom:10px;">
+    <div style="font-size:10px; font-weight:700; color:#B8860B; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">Two-Day Install Dates</div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:140px;">
+        <label style="display:block; font-size:10px; font-weight:700; color:#5A5A52; text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;">Day 1 — Install (Saturday)</label>
+        <input type="date" id="f-loc-day1" oninput="update()" style="font-family:inherit; font-size:14px; color:#1A1A18; background:#fff; border:1px solid #D4B87A; border-radius:6px; padding:8px 10px; width:100%; outline:none;">
+      </div>
+      <div style="flex:1; min-width:140px;">
+        <label style="display:block; font-size:10px; font-weight:700; color:#5A5A52; text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;">Day 2 — Securing (Sunday)</label>
+        <input type="date" id="f-loc-day2" oninput="update()" style="font-family:inherit; font-size:14px; color:#1A1A18; background:#fff; border:1px solid #D4B87A; border-radius:6px; padding:8px 10px; width:100%; outline:none;">
+      </div>
+    </div>
   </div>
 
   <div style="font-size:9px; color:#7A6A4A; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:5px;">Preparation Checklist (only show checked items on card)</div>
@@ -307,7 +361,7 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     <button class="btn-secondary" onclick="downloadPDF()" id="btn-pdf">Download PDF</button>
   </div>
   <button onclick="copyClientLink()" id="btn-link" style="width:100%;margin-top:8px;background:#F5F0E8;color:#0F2D1F;border:1px solid #D4B87A;padding:12px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;">Copy Client Link</button>
-  <div id="link-msg" style="display:none;font-size:11px;color:#2C5440;font-weight:600;text-align:center;margin-top:6px;">Link copied. Send to client via text.</div>
+  <div id="link-msg" style="display:none;font-size:11px;color:#2C5440;font-weight:600;text-align:center;margin-top:6px;line-height:1.5;"></div>
 </div>
 
 <!-- CLIENT CARD -->
@@ -341,6 +395,65 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
       <div class="notes-box" id="o-notes-text"></div>
     </div>
 
+    <!-- LOC RETWIST / MAINTENANCE NOTE -->
+    <div class="block" id="o-loc-note-block" style="display:none;">
+      <div class="block-title">Loc Install Note</div>
+      <div class="callout">Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+    </div>
+
+    <!-- SENSORY-FRIENDLY NOTE -->
+    <div class="block" id="o-sensory-block" style="display:none;">
+      <div class="block-title">Sensory-Friendly Appointment</div>
+      <div style="background:#F5F0E8; border-radius:10px; padding:14px 16px; font-size:13px; color:#3A3A32; line-height:1.7;">
+        <p style="margin-bottom:8px;">Your appointment has been set up with your comfort in mind. Here is what to expect:</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>We work at your pace. Let us know at any point if you need a break.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>You are welcome to bring comfort items such as headphones, a tablet, a snack, or a fidget toy.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>A caregiver or support person is welcome to stay for the full appointment.</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F2D1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="20 6 9 17 4 12"/></svg>If you have specific needs or preferences we should know before the visit, please text us at (951) 653-4477.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLOR SERVICE DISCLAIMER -->
+    <div class="block" id="o-color-block" style="display:none;">
+      <div class="block-title">Color Service Notice</div>
+      <div style="background:#F5F0E8; border-left:3px solid #B8860B; border-radius:0 8px 8px 0; padding:12px 14px; font-size:12px; color:#3A2A0A; line-height:1.7;">
+        <strong>Patch Test Required.</strong> If you have not had a color service with us before or if it has been more than 6 months since your last chemical service, a patch test is required at least 48 hours before your appointment.<br><br>
+        <strong>Allergy Disclaimer.</strong> Color services involve chemical products that may cause reactions in some individuals. By booking this service you confirm you have disclosed any known sensitivities and agree to hold Cousins Styling Studio harmless for reactions arising from undisclosed allergies or sensitivities.<br><br>
+        Questions before your appointment? Call or text us at <strong>(951) 653-4477</strong>.
+      </div>
+    </div>
+    <div class="block" id="o-loc-install-block" style="display:none;">
+      <div class="block-title">Your Loc Extension Install</div>
+      <p style="font-size:12px; color:#5A5A52; line-height:1.65; margin-bottom:12px;">Loc extension installs are a two-day service. Both days are required to complete your install. Please keep both dates fully available before sending your deposit.</p>
+      <div class="loc-process-block">
+        <div class="loc-day">
+          <div class="loc-day-num">1</div>
+          <div class="loc-day-body">
+            <div class="loc-day-label">Day 1 &nbsp;·&nbsp; Installation &nbsp;·&nbsp; Saturday</div>
+            <div class="loc-day-date" id="o-loc-day1-date"></div>
+            <div class="loc-day-desc">Your extensions are sectioned, attached, and installed. This is a full-day service. Plan to arrive on time and stay for the full session. We recommend bringing snacks, water, a neck pillow, and headphones.</div>
+          </div>
+        </div>
+        <div class="loc-day">
+          <div class="loc-day-num">2</div>
+          <div class="loc-day-body">
+            <div class="loc-day-label">Day 2 &nbsp;·&nbsp; Securing &nbsp;·&nbsp; Sunday</div>
+            <div class="loc-day-date" id="o-loc-day2-date"></div>
+            <div class="loc-day-desc">Your locs are secured, tightened at the root, and finished to ensure they hold properly. This session is shorter but essential. Both days must be completed for your install to be done correctly.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff; border:1px solid #E8E4DA; border-radius:8px; padding:12px 14px; margin-top:10px; font-size:12px; color:#3A3A32; line-height:1.65;">
+        <strong style="color:#0F2D1F;">Please note:</strong> Minor slippage during the settling period is normal and expected. Your service includes one complimentary maintenance appointment valid for 90 days from your original install date.
+      </div>
+      <div class="avail-contact-box">
+        <div class="avail-contact-title">Check Weekend Availability Before You Book</div>
+        <div class="avail-contact-line">To confirm Saturday and Sunday dates are open, text or call us at <strong>(951) 653-4477</strong> or DM us on Instagram at <strong>@CousinsStylingStudio</strong>. We respond within 24 hours.</div>
+      </div>
+    </div>
+
     <!-- DURATION -->
     <div class="block" id="o-duration-block" style="display:none;">
       <div class="block-title">Estimated Appointment Time</div>
@@ -350,13 +463,7 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
     <!-- LONG APPOINTMENT NOTE -->
     <div class="block" id="o-long-appt-block" style="display:none;">
       <div class="block-title">Extended Service Note</div>
-      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.</div>
-    </div>
-
-    <!-- LOC INSTALL NOTE -->
-    <div class="block" id="o-loc-note-block" style="display:none;">
-      <div class="block-title">Loc Install Note</div>
-      <div class="callout">Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
+      <div class="callout">This is an extended appointment. We recommend bringing snacks, water, a neck pillow, headphones, and anything else that will help keep you comfortable.<br><br>Some services may continue into a second day.<br><br>Minor slippage of loc extensions during the settling period is normal. Your service includes one complimentary maintenance appointment valid for 90 days from your original appointment date.</div>
     </div>
 
     <!-- PREP CHECKLIST -->
@@ -469,9 +576,85 @@ body { font-family: 'DM Sans', sans-serif; background: #F0EDE4; min-height: 100v
 </div>
 
 <script>
+function handleServiceSelect() {
+  const sel = document.getElementById('f-service-select');
+  const customInput = document.getElementById('f-service');
+  const val = sel.value;
+
+  // Show custom input for Other
+  if (val === 'custom') {
+    customInput.style.display = 'block';
+    customInput.value = '';
+    customInput.focus();
+  } else {
+    customInput.style.display = 'none';
+    customInput.value = val;
+  }
+
+  // Reset all auto-config flags before applying new ones
+  document.getElementById('f-long-appt').checked = false;
+  document.getElementById('f-sensory').checked = false;
+  document.getElementById('f-color-note').checked = false;
+  document.getElementById('f-loc-install').checked = false;
+  document.getElementById('loc-date-fields').style.display = 'none';
+  document.getElementById('f-duration').value = '';
+
+  // Service-specific auto-configurations
+  const configs = {
+    'Loc Extension Install': () => {
+      document.getElementById('f-loc-install').checked = true;
+      document.getElementById('f-long-appt').checked = true;
+      document.getElementById('loc-date-fields').style.display = 'block';
+      document.getElementById('f-duration').value = 'Two-day service \u00b7 Saturday and Sunday';
+    },
+    'Loc Retwist / Maintenance': () => {
+      document.getElementById('f-duration').value = '1 to 3 hours';
+    },
+    'Box Braids': () => {
+      document.getElementById('f-long-appt').checked = true;
+      document.getElementById('f-duration').value = '4 to 8 hours';
+    },
+    'Knotless Braids': () => {
+      document.getElementById('f-long-appt').checked = true;
+      document.getElementById('f-duration').value = '4 to 8 hours';
+    },
+    'Sew-In / Weave': () => {
+      document.getElementById('f-long-appt').checked = true;
+      document.getElementById('f-duration').value = '3 to 5 hours';
+    },
+    'Color Service': () => {
+      document.getElementById('f-color-note').checked = true;
+      document.getElementById('f-duration').value = '2 to 4 hours';
+    },
+    'Kids Cut': () => {
+      document.getElementById('f-sensory').checked = true;
+    },
+  };
+
+  if (configs[val]) configs[val]();
+  update();
+}
+
+function handleLocInstall() {
+  const checked = document.getElementById('f-loc-install').checked;
+  document.getElementById('loc-date-fields').style.display = checked ? 'block' : 'none';
+  // Auto-fill service and duration fields when checked
+  if (checked) {
+    const selField = document.getElementById('f-service-select');
+    const durField = document.getElementById('f-duration');
+    if (selField && !selField.value) selField.value = 'Loc Extension Install';
+    if (!durField.value) durField.value = 'Two-day service \u00b7 Saturday and Sunday';
+    document.getElementById('f-long-appt').checked = true;
+  }
+  update();
+}
+
 function update() {
   const client   = document.getElementById('f-client').value.trim();
-  const service  = document.getElementById('f-service').value.trim();
+  const sel      = document.getElementById('f-service-select');
+  const service  = sel && sel.value && sel.value !== 'custom'
+    ? sel.value
+    : document.getElementById('f-service').value.trim();
   const stylist  = document.getElementById('f-stylist').value.trim();
   const date     = document.getElementById('f-date').value.trim();
   const time     = document.getElementById('f-time').value.trim();
@@ -483,7 +666,11 @@ function update() {
   const hairNotes  = document.getElementById('f-hair-notes').value.trim();
   const duration   = document.getElementById('f-duration').value.trim();
   const longAppt   = document.getElementById('f-long-appt').checked;
-  const locNote    = document.getElementById('f-loc-note').checked;
+  const locInstall = document.getElementById('f-loc-install').checked;
+  const locDay1    = document.getElementById('f-loc-day1').value;
+  const locDay2    = document.getElementById('f-loc-day2').value;
+  const sensory    = document.getElementById('f-sensory').checked;
+  const colorNote  = document.getElementById('f-color-note').checked;
   const depositRcvd = document.getElementById('f-deposit-received').checked;
   // Deposit validation
   const warning = document.getElementById('deposit-warning');
@@ -577,8 +764,30 @@ function update() {
   // Long appointment note
   document.getElementById('o-long-appt-block').style.display = longAppt ? 'block' : 'none';
 
-  // Loc install note
-  document.getElementById('o-loc-note-block').style.display = locNote ? 'block' : 'none';
+  // Sensory-friendly note
+  document.getElementById('o-sensory-block').style.display = sensory ? 'block' : 'none';
+
+  // Color service disclaimer
+  document.getElementById('o-color-block').style.display = colorNote ? 'block' : 'none';
+
+  // Loc install two-day block
+  const locBlock = document.getElementById('o-loc-install-block');
+  if (locInstall) {
+    locBlock.style.display = 'block';
+    // Format and display the two dates
+    function fmtLocDate(raw) {
+      if (!raw) return '';
+      const d = new Date(raw + 'T12:00:00');
+      if (isNaN(d)) return raw;
+      return d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    }
+    const day1El = document.getElementById('o-loc-day1-date');
+    const day2El = document.getElementById('o-loc-day2-date');
+    day1El.textContent = locDay1 ? fmtLocDate(locDay1) : 'Date to be confirmed';
+    day2El.textContent = locDay2 ? fmtLocDate(locDay2) : 'Date to be confirmed';
+  } else {
+    locBlock.style.display = 'none';
+  }
 
   // Prep checklist
   const prepChecks = document.querySelectorAll('.f-prep:checked');
@@ -670,55 +879,65 @@ function clearPhoto(type) {
 function copyClientLink() {
   const base = window.location.href.replace('index.html', '').replace(/\/$/, '') + '/client.html';
   const params = new URLSearchParams();
+
+  const sel = document.getElementById('f-service-select');
+  const svcVal = sel && sel.value && sel.value !== 'custom'
+    ? sel.value
+    : document.getElementById('f-service').value.trim();
+
   const fields = {
-    client:      document.getElementById('f-client').value.trim(),
-    service:     document.getElementById('f-service').value.trim(),
-    stylist:     document.getElementById('f-stylist').value.trim(),
-    date:        document.getElementById('f-date').value.trim(),
-    time:        document.getElementById('f-time').value.trim(),
-    total:       document.getElementById('f-total').value.trim(),
-    deposit:     document.getElementById('f-deposit').value.trim(),
-    deadline:    document.getElementById('f-deadline').value.trim(),
-    duration:    document.getElementById('f-duration').value.trim(),
-    notes:       document.getElementById('f-notes').value.trim(),
-    hairNotes:   document.getElementById('f-hair-notes').value.trim(),
-    longAppt:    document.getElementById('f-long-appt').checked ? '1' : '',
-    locNote:     document.getElementById('f-loc-note').checked ? '1' : '',
-    depositRcvd: document.getElementById('f-deposit-received').checked ? '1' : '',
+    client:       document.getElementById('f-client').value.trim(),
+    service:      svcVal,
+    stylist:      document.getElementById('f-stylist').value.trim(),
+    date:         document.getElementById('f-date').value.trim(),
+    time:         document.getElementById('f-time').value.trim(),
+    total:        document.getElementById('f-total').value.trim(),
+    deposit:      document.getElementById('f-deposit').value.trim(),
+    deadline:     document.getElementById('f-deadline').value.trim(),
+    duration:     document.getElementById('f-duration').value.trim(),
+    notes:        document.getElementById('f-notes').value.trim(),
+    hairNotes:    document.getElementById('f-hair-notes').value.trim(),
+    longAppt:     document.getElementById('f-long-appt').checked ? '1' : '',
+    locInstall:   document.getElementById('f-loc-install').checked ? '1' : '',
+    locDay1:      document.getElementById('f-loc-day1').value,
+    locDay2:      document.getElementById('f-loc-day2').value,
+    sensory:      document.getElementById('f-sensory').checked ? '1' : '',
+    colorNote:    document.getElementById('f-color-note').checked ? '1' : '',
+    depositRcvd:  document.getElementById('f-deposit-received').checked ? '1' : '',
   };
   Object.entries(fields).forEach(([k, v]) => { if (v) params.set(k, v); });
+
+  // Prep checklist
   const checked = Array.from(document.querySelectorAll('.f-prep:checked')).map(c => c.value);
   if (checked.length) params.set('prep', checked.join('|'));
-  const fullUrl = base + '?' + params.toString();
 
+  const fullUrl = base + '?' + params.toString();
   const btn = document.getElementById('btn-link');
   const msg = document.getElementById('link-msg');
   btn.textContent = 'Shortening\u2026';
   btn.disabled = true;
 
   fetch('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(fullUrl))
-    .then(function(r) { return r.text(); })
-    .then(function(short) {
+    .then(r => r.text())
+    .then(short => {
       short = short.trim();
       if (!short.startsWith('http')) throw new Error('bad');
-      return navigator.clipboard.writeText(short).then(function() { return short; });
+      return navigator.clipboard.writeText(short).then(() => short);
     })
-    .then(function(short) {
+    .then(short => {
       btn.textContent = '\u2713 Copied';
       btn.disabled = false;
-      msg.textContent = short + ' \u2014 copied. Ready to send.';
+      msg.textContent = short + ' \u2014 copied. Send to client via text.';
       msg.style.display = 'block';
-      setTimeout(function() { btn.textContent = 'Copy Client Link'; msg.style.display = 'none'; }, 5000);
+      setTimeout(() => { btn.textContent = 'Copy Client Link'; msg.style.display = 'none'; }, 5000);
     })
-    .catch(function() {
-      navigator.clipboard.writeText(fullUrl).catch(function() {
-        prompt('Copy this link and send to client:', fullUrl);
-      });
+    .catch(() => {
+      navigator.clipboard.writeText(fullUrl).catch(() => prompt('Copy this link:', fullUrl));
       btn.textContent = '\u2713 Copied';
       btn.disabled = false;
       msg.textContent = 'TinyURL unavailable \u2014 full link copied instead.';
       msg.style.display = 'block';
-      setTimeout(function() { btn.textContent = 'Copy Client Link'; msg.style.display = 'none'; }, 5000);
+      setTimeout(() => { btn.textContent = 'Copy Client Link'; msg.style.display = 'none'; }, 5000);
     });
 }
 
