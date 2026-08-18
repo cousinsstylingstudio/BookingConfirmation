@@ -270,7 +270,8 @@ body{font-family:var(--sans);background:var(--linen);min-height:100vh;display:fl
       <div class="block-title">Your Appointment Total</div>
       <div style="background:#F5F0E8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#3A2A0A;line-height:1.65;margin-bottom:12px;">
         <strong>Please Review Before Sending Your Deposit</strong><br>
-        Review your details, total, deposit amount, and any notes before sending payment. Sending your deposit confirms the information is correct.
+        Review your details, deposit amount, and any notes before sending payment. Sending your deposit confirms the information is correct.<br><br>
+        <strong>Final service total is confirmed after your consultation.</strong> The deposit shown is due now to hold your appointment. Your stylist will confirm the full price before your service begins.
       </div>
       <table class="balance-table">
         <tr><td>Service total</td><td id="o-total">$—</td></tr>
@@ -376,7 +377,9 @@ body{font-family:var(--sans);background:var(--linen);min-height:100vh;display:fl
 
   // Appt bar
   setText('o-service-stylist', (service || 'Service') + (stylist ? ' with ' + stylist : ''));
-  setText('o-datetime', (fmt(date) || date || 'Date') + (time ? ' at ' + time : '') + ' \u00B7 Moreno Valley, CA');
+  const dateDisplay = date ? (fmt(date) || date) : 'Date to be confirmed';
+  const timeDisplay = time ? ' at ' + time : '';
+  setText('o-datetime', dateDisplay + timeDisplay + ' \u00B7 Moreno Valley, CA');
   if (client) {
     const nameEl = document.getElementById('o-client-name');
     if (nameEl) { nameEl.textContent = client; nameEl.style.display = 'block'; }
@@ -426,8 +429,8 @@ body{font-family:var(--sans);background:var(--linen);min-height:100vh;display:fl
   // Confirmation summary
   const summaryItems = [];
   if (service)   summaryItems.push({label:'Service', val:service});
-  if (date)      summaryItems.push({label:'Date', val:fmt(date) || date});
-  if (time)      summaryItems.push({label:'Time', val:time});
+  summaryItems.push({label:'Date', val: date ? (fmt(date) || date) : 'To be confirmed'});
+  summaryItems.push({label:'Time', val: time || 'To be confirmed'});
   if (stylist)   summaryItems.push({label:'Stylist', val:stylist});
   if (duration)  summaryItems.push({label:'Estimated duration', val:duration});
   if (hairNotes) summaryItems.push({label:'Hair / appointment notes', val:hairNotes});
